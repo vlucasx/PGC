@@ -1,8 +1,9 @@
 import math
 
 entradas = [3,0.2,0.6] # vetor de entrada 
-pesos = [0.4,0.5,0.5] # vetor de pesos
-limiarAtivacao = 1 # threshold (posteriormentte uma função)
+pesos = [0.1,0.3,0.4] # vetor de pesos
+deslocamento = 0
+temperatura = -1
 
 def verificaEntradasEpesos(entradas, pesos): # verifica se a quantidade de entradas e de pesos é igual
   if len(entradas) > len(pesos):
@@ -16,37 +17,32 @@ def verificaEntradasEpesos(entradas, pesos): # verifica se a quantidade de entra
 def funcaoAtivacao(net, deslocamento, temperatura):
   return 1/(1+(math.e)**(-((net-deslocamento)/temperatura)))
 
-def neuronio(entradas, pesos, limiarAtivacao): # método do neurônio
+def calculaNet(entradas, pesos): # calcula o valor de rede (net):
   net = 0
   i=0
 
-# calcula o valor de rede (net)
   for entrada in entradas:
     net = net + entrada * pesos[i]
     i=i+1
-    
-  print("Limiar:", limiarAtivacao)
-  print("Net:", net)
-  print("")
 
-# verifica se o neurônio disparou
-  if net >= limiarAtivacao:
-    print("DISPAROU (Net >= Limiar)")
+  return net
+
+  
+def neuronio(entradas, pesos, deslocamento, temperatura): # método do neurônio
+  net = calculaNet(entradas, pesos)
+  
+  if net > funcaoAtivacao(net,deslocamento,temperatura): # Se x > f(X), o neurônio ativa sua saída. Se x >= f(x) não ativa a saída.
+      print("ativou: f("+str(net)+") = "+str(funcaoAtivacao(net,deslocamento,temperatura)))
+      return False
   else:
-    print("Não disparou (Net < Limiar)")
-
+    print("não ativou: f("+str(net)+") = "+str(funcaoAtivacao(net,deslocamento,temperatura)))
+    return True
 
 def main():
   if not verificaEntradasEpesos(entradas, pesos):
     return
-  neuronio(entradas, pesos, limiarAtivacao)
-  deslocamento = 0
-  temperatura =-1
 
-  for net in range(0,30):
-    if net/10 > funcaoAtivacao(net/10,deslocamento,temperatura):
-      print("ativado ", "f("+str(net/10)+") = "+str(funcaoAtivacao(net/10,deslocamento,temperatura)))
-    else:
-        print("f("+str(net/10)+") = "+str(funcaoAtivacao(net/10,deslocamento,temperatura)))
+  neuronio(entradas, pesos, deslocamento, temperatura)
+
 
 main()
