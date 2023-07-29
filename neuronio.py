@@ -31,7 +31,7 @@ def calculaNet(entradas, pesos): # calcula o valor de rede (net):
 def neuronio(entradas, pesos, deslocamento, temperatura): # método do neurônio
   net = calculaNet(entradas, pesos)
   
-  if net > funcaoAtivacao(net,deslocamento,temperatura): # Se x > f(X), o neurônio ativa sua saída. Se x >= f(x) não ativa a saída.
+  if funcaoAtivacao(net,deslocamento,temperatura) >= 1 : # Se f(x)>=1, o neurônio ativa sua saída. Se f(x) < 1, não ativa a saída.
       print("ativou: f("+str(net)+") = "+str(funcaoAtivacao(net,deslocamento,temperatura)))
       return False
   else:
