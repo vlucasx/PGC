@@ -3,7 +3,7 @@ import math
 entradas = [3,0.2,0.6] # vetor de entrada 
 pesos = [0.1,0.3,0.4] # vetor de pesos
 deslocamento = 0
-temperatura = -1
+temperatura = 0.001  # 0.001 forma um degrau razoável
 
 def verificaEntradasEpesos(entradas, pesos): # verifica se a quantidade de entradas e de pesos é igual
   if len(entradas) > len(pesos):
