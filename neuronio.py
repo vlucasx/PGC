@@ -1,4 +1,6 @@
 import math
+import random
+import pandas as pd
 
 entradas = [4,0.5,1.1] # vetor de entrada 
 pesos = [0.1,0.3,0.4] # vetor de pesos
@@ -37,11 +39,55 @@ def neuronio(entradas, pesos, deslocamento, temperatura): # método do neurônio
     print("não ativou: f("+str(net)+") = "+str(funcaoAtivacao(net,deslocamento,temperatura)))
     return True
 
+
+def criaFrutas(quantidade): # cria uma quantidade estipulada de "frutas"
+  dados = []
+
+  for i in range(quantidade):
+    cor = random.uniform(0, 10)
+    formato = random.uniform(0, 10)
+    dados.append((cor, formato, "N/A"))
+  
+  return dados
+
+
+def verificaMacas(dados, a,b, c,d): # verifica quais frutas são maçãs de acordo com as cacterísticas estipuladas nos intervalos a,b c,d que podem variar de 0 a 10.
+
+  df = pd.DataFrame(dados, columns=['cor','formato', 'maçã?'])
+  m=0
+  
+  for i in range(len(dados)):
+    if a <= dados[i][0] <= b:
+      if c <= dados[i][1] <= d:
+        df.iloc[i, 2] = "sim"
+        m = m+1    
+
+  print("número de maçãs:", m)
+
+
 def main():
   verificaEntradasEpesos(entradas, pesos)
   
+# definição de maçã:
+  # range cor:
+  a = 5
+  b = 10
 
-  neuronio(entradas, pesos, deslocamento, temperatura)
+  # range formato:
+  c = 0
+  d = 6
+  quantidadeFrutas = 500
+
+  frutas = criaFrutas(quantidadeFrutas)
+  verificaMacas(frutas, a,b, c,d)
+
+
+
+  # separar parte do DF para aprendizado e outra parte para teste
+
+
+
+  # neuronio(entradas, pesos, deslocamento, temperatura)
 
 
 main()
