@@ -8,11 +8,10 @@ temperatura = 0.0001  # 0.0001 forma um degrau razoável
 def verificaEntradasEpesos(entradas, pesos): # verifica se a quantidade de entradas e de pesos é igual
   if len(entradas) > len(pesos):
     print("vetor de entradas maior que o de pesos")
-    return
+    exit()
   elif len(entradas) < len(pesos):
     print("vetor de entradas menor que o de pesos")
-    return
-  return True
+    exit()
 
 def funcaoAtivacao(net, deslocamento, temperatura):
   return 1/(1+(math.e)**(-((net-deslocamento)/temperatura)))
@@ -39,8 +38,8 @@ def neuronio(entradas, pesos, deslocamento, temperatura): # método do neurônio
     return True
 
 def main():
-  if not verificaEntradasEpesos(entradas, pesos):
-    return
+  verificaEntradasEpesos(entradas, pesos)
+  
 
   neuronio(entradas, pesos, deslocamento, temperatura)
 
