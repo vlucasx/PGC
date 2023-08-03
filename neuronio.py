@@ -1,6 +1,7 @@
 import math
 import random
 import pandas as pd
+import matplotlib.pyplot as plt
 
 entradas = [4,0.5,1.1] # vetor de entrada 
 pesos = [0.1,0.3,0.4] # vetor de pesos
@@ -63,6 +64,27 @@ def verificaMacas(dados, a,b, c,d): # verifica quais frutas são maçãs de acor
         m = m+1    
 
   print("número de maçãs:", m)
+  plotar(df, a,b, c,d)
+  
+
+def plotar(df, a,b, c,d):
+
+  cor_y = (c, d)  
+  formato_x = (a, b)  
+
+  # Check if each element meets the criteria for both X and Y ranges
+  criteria = (df['formato'].between(formato_x[0], formato_x[1])) & (df['cor'].between(cor_y[0], cor_y[1]))
+
+  # Plot the scatter plot using Matplotlib and different colors based on the criteria
+  plt.scatter(df['formato'][criteria], df['cor'][criteria], color='red', marker='o', label='Meets Criteria')
+  plt.scatter(df['formato'][~criteria], df['cor'][~criteria], color='blue', marker='o', label='Does Not Meet Criteria')
+  plt.xlabel('formato')
+  plt.ylabel('cor')
+  plt.title('Scatter Plot with Color Criteria')
+  plt.legend()
+  plt.grid(True)
+  plt.show()
+
 
 
 def main():
@@ -70,13 +92,13 @@ def main():
   
 # definição de maçã:
   # range cor:
-  a = 5
-  b = 10
+  a = 2
+  b = 7 
 
   # range formato:
-  c = 0
-  d = 6
-  quantidadeFrutas = 500
+  c = 4
+  d = 8
+  quantidadeFrutas = 3000
 
   frutas = criaFrutas(quantidadeFrutas)
   verificaMacas(frutas, a,b, c,d)
