@@ -54,6 +54,7 @@ def criaFrutas(quantidade): # cria uma quantidade estipulada de "frutas"
   return dados
 
 
+
 def verificaMacas2var(dados, a,b, c,d): # verifica quais frutas são maçãs de acordo com as cacterísticas estipuladas nos intervalos a,b c,d que podem variar de 0 a 10.
 
   df = pd.DataFrame(dados, columns=['cor','formato', 'maçã?'])
@@ -67,7 +68,7 @@ def verificaMacas2var(dados, a,b, c,d): # verifica quais frutas são maçãs de 
 
   print("número de maçãs:", m)
   plotar2var(df, a,b, c,d)
-  
+
 
 def plotar2var(df, a,b, c,d):
 
@@ -88,6 +89,7 @@ def plotar2var(df, a,b, c,d):
   plt.show()
 
 
+
 def verificaMacas(dados, a,b): # verifica quais frutas são maçãs de acordo com as cacterísticas estipuladas nos intervalos [a,b] que podem variar de 0 a 10.
 
   df = pd.DataFrame(dados, columns=['cor', 'formato', 'maçã?'])
@@ -100,7 +102,7 @@ def verificaMacas(dados, a,b): # verifica quais frutas são maçãs de acordo co
 
   print("número de maçãs:", m)
   plotar(df, a,b)
-  
+ 
 
 def plotar(df, a,b):
 
@@ -121,28 +123,67 @@ def plotar(df, a,b):
   plt.show()
 
 
+
+def verificaMacas1var(dados, a): # verifica quais frutas são maçãs de acordo com as cacterísticas estipuladas nos intervalos [a,b] que podem variar de 0 a 10.
+
+  df = pd.DataFrame(dados, columns=['cor', 'formato', 'maçã?'])
+  m=0
+  
+  for i in range(len(dados)):
+    if dados[i][0] <= a:
+      df.iloc[i, 2] = "sim"
+      m = m+1
+
+  print("número de maçãs:", m)
+  plotar1var(df, a)
+
+
+def plotar1var(df, a):
+
+  range_max_y = (0, 10)
+  formato_x = (0, a)  
+
+  # Check if each element meets the criteria for both X and Y ranges
+  criteria = (df['formato'].between(formato_x[0], formato_x[1])) & (df['cor'].between(range_max_y[0]-1, range_max_y[1]+1))
+
+  # Plot the scatter plot using Matplotlib and different colors based on the criteria
+  plt.scatter(df['formato'][criteria], df['cor'][criteria], color='red', marker='o', label='Meets Criteria')
+  plt.scatter(df['formato'][~criteria], df['cor'][~criteria], color='blue', marker='o', label='Does Not Meet Criteria')
+  plt.xlabel('formato')
+  plt.ylabel('cor')
+  plt.title('Scatter Plot with Color Criteria')
+  plt.legend()
+  plt.grid(True)
+  plt.show()
+
+
 def main():
 
   verificaEntradasEpesos(entradas, pesos)
   
-# definição de maçã 2 var:
-  # range cor:
-  a = 2
-  b = 7 
+# # definição de maçã 2 var:
+#   # range cor:
+#   a = 2
+#   b = 7 
 
-  # range formato:
-  c = 4
-  d = 8
-  quantidadeFrutas = 30
+#   # range formato:
+#   c = 4
+#   d = 8
+  quantidadeFrutas = 10
 
   # frutas = criaFrutas2var(quantidadeFrutas)
   # verificaMacas2var(frutas, a,b, c,d)
   # -----------------------------------------
+  # frutas = criaFrutas(quantidadeFrutas)
+  # verificaMacas(frutas, a,b)
+
+
+# definição de maçã 1 var:
+  a=8
   frutas = criaFrutas(quantidadeFrutas)
-  verificaMacas(frutas, a,b)
-
-
-
+  verificaMacas1var(frutas, a)
+  
+# consertar plot!!
 
 
 
