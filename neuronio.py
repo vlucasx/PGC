@@ -69,7 +69,7 @@ def verificaMacas4var(dados, a,b, c,d): # verifica quais frutas são maçãs de 
   print("número de maçãs:", m)
   plotar(df)
 
-def verificaMacas2var(dados, a,b): # verifica quais frutas são maçãs de acordo com as cacterísticas estipuladas nos intervalos [a,b] que podem variar de 0 a 10.
+def verificaMacas2var(dados, a,b): # verifica quais frutas são maçãs de acordo com as cacterísticas estipuladas no intervalo [a,b] que pode variar de 0 a 10.
 
   df = pd.DataFrame(dados, columns=['cor', 'formato', 'maçã?'])
   m=0
@@ -82,7 +82,7 @@ def verificaMacas2var(dados, a,b): # verifica quais frutas são maçãs de acord
   print("número de maçãs:", m)
   plotar(df)
 
-def verificaMacas1var(dados, a): # verifica quais frutas são maçãs de acordo com as cacterísticas estipuladas nos intervalos [a,b] que podem variar de 0 a 10.
+def verificaMacas1var(dados, a): # verifica quais frutas são maçãs de acordo com as cacterísticas estipuladas no intervalo [a, 10], que podem variar de 0 a 10.
 
   df = pd.DataFrame(dados, columns=['cor', 'formato', 'maçã?'])
   m=0
