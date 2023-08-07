@@ -117,6 +117,12 @@ def plotar(df):
 
 
 
+def funcaoAprendizado(formatoX, deslocamento, temperatura):
+  entradas = [formatoX]
+  pesos = random.uniform(0, 10) # peso inicial aleatório entre 0 e 10.
+  resposta = neuronio(entradas, pesos, deslocamento, temperatura)
+  verificaResposta(resposta, numFruta, df)
+
 def verificaResposta(resposta, numFruta, df):
 
   print("Linha:", df.iloc[[numFruta]])
