@@ -3,8 +3,8 @@ import random
 import pandas as pd
 import matplotlib.pyplot as plt
 
-entradas = [4,0.5,1.1] # vetor de entrada 
-pesos = [0.1,0.3,0.4] # vetor de pesos
+# entradas = [4,0.5,1.1] # vetor de entrada 
+# pesos = [0.1,0.3,0.4] # vetor de pesos
 deslocamento = 1 # deslocamento inicial +1 para direita para que f(x>1) = 1
 temperatura = 0.0001  # 0.0001 forma um degrau razoável
 
@@ -68,6 +68,7 @@ def verificaMacas4var(dados, a,b, c,d): # verifica quais frutas são maçãs de 
 
   print("número de maçãs:", m)
   plotar(df)
+  return df
 
 def verificaMacas2var(dados, a,b): # verifica quais frutas são maçãs de acordo com as cacterísticas estipuladas no intervalo [a,b] que pode variar de 0 a 10.
 
@@ -81,6 +82,7 @@ def verificaMacas2var(dados, a,b): # verifica quais frutas são maçãs de acord
 
   print("número de maçãs:", m)
   plotar(df)
+  return df
 
 def verificaMacas1var(dados, a): # verifica quais frutas são maçãs de acordo com as cacterísticas estipuladas no intervalo [a, 10], que podem variar de 0 a 10.
 
@@ -94,7 +96,7 @@ def verificaMacas1var(dados, a): # verifica quais frutas são maçãs de acordo 
 
   print("número de maçãs:", m)
   plotar(df)
-
+  return df
 
 def plotar(df):
 
@@ -114,9 +116,30 @@ def plotar(df):
   plt.show()
 
 
+
+def verificaResposta(resposta, numFruta, df):
+
+  print("Linha:", df.iloc[[numFruta]])
+
+  if resposta == True:
+    if df.iloc[numFruta, 2] == 'sim':
+      return True # Verdadeiro Verdadeiro
+    else:
+      print("falso positivo")
+      return False # Verdadeiro Falso (falso positivo)
+    
+  else:
+    if df.iloc[numFruta, 2] == 'sim':
+      print("falso negativo")
+      return False # Falso Verdadeiro (falso negativo)
+    else:
+      return True # Falso Falso
+
+
+
 def main():
 
-  verificaEntradasEpesos(entradas, pesos)
+  # verificaEntradasEpesos(entradas, pesos)
   
 # # definição de maçã 2 var:
   # range cor:
@@ -127,15 +150,12 @@ def main():
   c = 4
   d = 8
   
-  quantidadeFrutas = 100
+  quantidadeFrutas = 10
   frutas = criaFrutas(quantidadeFrutas)
+  # verificaMacas4var(frutas, a,b, c,d)
+  # verificaMacas2var(frutas, a,b)
 
-  verificaMacas4var(frutas, a,b, c,d)
-  verificaMacas2var(frutas, a,b)
-  verificaMacas1var(frutas, a)
-  
-
-
+  df = verificaMacas1var(frutas, a)
 
 
 
