@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 # entradas = [4,0.5,1.1] # vetor de entrada 
 # pesos = [0.1,0.3,0.4] # vetor de pesos
 deslocamento = 1 # deslocamento inicial +1 para direita para que f(x>1) = 1
-temperatura = 0.0001  # 0.0001 forma um degrau razoável
+temperatura = 0.001  # 0.0001 forma um degrau razoável
 
 def verificaEntradasEpesos(entradas, pesos): # verifica se a quantidade de entradas e de pesos é igual
   if len(entradas) > len(pesos):
@@ -117,11 +117,25 @@ def plotar(df):
 
 
 
-def funcaoAprendizado(formatoX, deslocamento, temperatura):
-  entradas = [formatoX]
-  pesos = random.uniform(0, 10) # peso inicial aleatório entre 0 e 10.
-  resposta = neuronio(entradas, pesos, deslocamento, temperatura)
-  verificaResposta(resposta, numFruta, df)
+def funcaoAprendizado(df, deslocamento, temperatura):
+
+  acertos = 0
+  pesos = random.uniform(0, 10) # peso inicial aleatório entre 0 e 10
+  
+  for numFruta in range(len(df)):
+    formatoX = df.iloc[numFruta, 1]
+    entradas = [formatoX]
+
+    pesos = [random.uniform(0, 10)] # peso aleatório temporário
+
+    resposta = neuronio(entradas, pesos, deslocamento, temperatura)
+    resultado = verificaResposta(resposta, numFruta, df)
+    print("acertou?:", resultado,"\n")
+    if resultado == True:
+      acertos = acertos+1
+
+  porcentagemAcertos = acertos*100/len(df)
+  print("Porcentagem de acertos:", porcentagemAcertos, "%")
 
 def verificaResposta(resposta, numFruta, df):
 
@@ -162,6 +176,7 @@ def main():
   # verificaMacas2var(frutas, a,b)
 
   df = verificaMacas1var(frutas, a)
+  funcaoAprendizado(df, deslocamento, temperatura)
 
 
 
