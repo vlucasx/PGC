@@ -37,10 +37,10 @@ def neuronio(entradas, pesos, deslocamento, temperatura): # método do neurônio
   
   if funcaoAtivacao(net,deslocamento,temperatura) >= 1 : # Se f(x)>=1, o neurônio ativa sua saída. Se f(x) < 1, não ativa a saída.
       print("ativou: f("+str(net)+") = "+str(funcaoAtivacao(net,deslocamento,temperatura)))
-      return False
+      return True
   else:
     print("não ativou: f("+str(net)+") = "+str(funcaoAtivacao(net,deslocamento,temperatura)))
-    return True
+    return False
 
 
 def criaFrutas(quantidade): # cria uma quantidade estipulada de "frutas"
